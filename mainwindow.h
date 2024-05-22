@@ -37,6 +37,7 @@ private slots:
     void onDibujarClicked();
 
 
+
 private:
 
     Ui::MainWindow *ui;
