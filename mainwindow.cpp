@@ -60,7 +60,8 @@ void MainWindow::onDibujarClicked()
     double radioMaxCM=((viewRect.width()-10)*2.54/(physicalDpiY()))/2;
 
 
-    double factor=(radioMaxPX/radioPX);
+    double factorpx=(radioMaxPX/radioPX);
+        double factorcm=(radioMaxCM/radioCM);
 
     QPolygon polygon(numLados);
 
@@ -69,24 +70,16 @@ void MainWindow::onDibujarClicked()
         double angle = ((i * 2 * M_PI )/numLados);
         std::cout<<"i:"<<i<<"angulo: "<<angle;
 
-        int x = factor*radioPX * cos(angle);
+        int x = factorpx*radioPX * cos(angle);
 
-        int y = factor*radioPX * sin(angle);
+        int y = factorpx*radioPX * sin(angle);
 
         polygon[i]=(QPoint(x, y));
 
     }
 
 
-    QRectF boundingRect = polygon.boundingRect();
-    double scaleFactor = qMin((viewRect.width()-10) / boundingRect.width(),
 
-                              (viewRect.height()-10)/ boundingRect.height());
-    QTransform transform;
-
-    transform.scale(scaleFactor, scaleFactor);
-
-    //polygon= transform.map(polygon);
 
 
     scene->clear();
@@ -95,5 +88,5 @@ void MainWindow::onDibujarClicked()
 
     scene->setSceneRect(polygon.boundingRect());
 
-    ui->labelScala->setText(QString("Escala 1 : %1 cm").arg(1/factor));
+    ui->labelScala->setText(QString("Escala 1 : %1 cm").arg(1/factorcm));
 }
